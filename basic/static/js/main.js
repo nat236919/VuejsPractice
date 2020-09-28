@@ -12,6 +12,8 @@ var app = new Vue({
         image: "https://rohan.imgix.net/product/05706H08.jpg",
         product: "Socks",
         desc: "Who doesn't love to have a good pair of socks? Get yourself a treat :)",
+        inventory: 10,
+        onSale: true,
         link: "https://get.foundation/index.html"
     }
 })

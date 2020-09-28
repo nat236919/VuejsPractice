@@ -39,14 +39,24 @@
         <div class="grid-container">
             <div class="card" style="width: 300px;">
                 <!-- Product -->
-                <div class="card-divider">Product</div>
+                <div class="card-divider">
+                    Product
+                </div>
                 <!-- Image -->
                 <img v-bind:src="image" style="height: 150px; width: 150px;" alt="Card image cap">
                 <!-- Info -->
                 <div class="card-section">
                     <h4>{{ product }}</h4>
                     <p>{{ desc }}</p>
-                    <a v-bind:href="link" target="_blank" class="button">Learn More</a>
+                    <p v-if="inventory > 10" class="success label">In Stock</p>
+                    <p v-else-if="inventory > 0 && inventory <= 10" class="warning label">
+                        Almost Out of Stock ({{inventory}} left)
+                    </p>
+                    <p v-else class="alert label">Out of Stock</p>
+                    <p v-show="onSale" class="badge alert">SALE!!</p>
+                    <div>
+                        <a v-bind:href="link" target="_blank" class="button">Learn More</a>
+                    </div>
                 </div>
             </div>
         </div>
