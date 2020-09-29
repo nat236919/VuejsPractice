@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Vue.js Practice</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- Foundation CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css">
@@ -37,7 +37,7 @@
     <!-- App  -->
     <div id="app">
         <div class="grid-container">
-            <div class="card" style="width: 300px;">
+            <div class="card" style="width: 300px; height: auto;">
                 <!-- Product -->
                 <div class="card-divider">
                     Product
@@ -64,11 +64,18 @@
                     </ul>
                     <hr>
                     <div v-for="variant in variants" :key="variant.variantId" style="display: inline-block">
-                        <a href="#" target="_blank" class="button hollow">{{ variant.variantColor }}</a>
+                        <a @mouseover="updateProductImage(variant.variantImage)" class="button hollow">{{ variant.variantColor }}</a>
                     </div>
                     <br>
                     <div v-for="size in sizes" style="display: inline-block">
                         <a href="#" target="_blank" class="secondary button hollow">{{ size }}</a>
+                    </div>
+                    <!-- Cart -->
+                    <hr>
+                    <div class="cart">
+                        <a v-on:click="addToCart" class="primary button">Add to Cart</a>
+                        <span v-show="cart>0" @click="removeFromCart" class="alert small button" style="display: inline-block">x</span>
+                        <p style="display: inline-block;">Cart({{ cart }})</p>
                     </div>
                 </div>
             </div>

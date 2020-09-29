@@ -16,16 +16,29 @@ var app = new Vue({
         variants: [
             {
                 variantId: 1,
-                variantColor: "black"
+                variantColor: "black",
+                variantImage: "https://www.sourpussclothing.com/media/catalog/product/cache/1/thumbnail/120x170/9df78eab33525d08d6e5fb8d27136e95/s/p/speckled_knee_socks_black_1.jpg"
             },
             {
                 variantId: 2,
-                variantColor: "green"
+                variantColor: "green",
+                variantImage: "https://sockbroker.com/image/cache/data/Mens/green-socks/KellyGree-mens-socks-kkeik-162x162.jpg"
             }
         ],
         sizes: ["S", "M", "L", "XL"],
-        inventory: 11,
+        inventory: 23,
         onSale: true,
-        link: "https://get.foundation/index.html"
+        cart: 0
+    },
+    methods: {
+        addToCart() {
+            this.cart += 1
+        },
+        removeFromCart() {
+            this.cart -= 1
+        },
+        updateProductImage: function(variantImage) {
+            this.image = variantImage
+        }
     }
 })
