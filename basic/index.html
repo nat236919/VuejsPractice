@@ -46,16 +46,29 @@
                 <img v-bind:src="image" style="height: 150px; width: 150px;" alt="Card image cap">
                 <!-- Info -->
                 <div class="card-section">
-                    <h4>{{ product }}</h4>
+                    <!-- Name -->
+                    <h4 style="display: inline-block">{{ product }}</h4>
+                    <!-- Status -->
+                    <div style="display: inline-block">
+                        <p v-if="inventory > 10" class="success label">In Stock</p>
+                        <p v-else-if="inventory > 0 && inventory <= 10" class="warning label">
+                            Almost Out of Stock ({{ inventory }} left)
+                        </p>
+                        <p v-else class="alert label">Out of Stock</p>
+                        <p v-show="onSale" class="badge alert">SALE!!</p>
+                    </div>
+                    <!-- Description and Details -->
                     <p>{{ desc }}</p>
-                    <p v-if="inventory > 10" class="success label">In Stock</p>
-                    <p v-else-if="inventory > 0 && inventory <= 10" class="warning label">
-                        Almost Out of Stock ({{inventory}} left)
-                    </p>
-                    <p v-else class="alert label">Out of Stock</p>
-                    <p v-show="onSale" class="badge alert">SALE!!</p>
-                    <div>
-                        <a v-bind:href="link" target="_blank" class="button">Learn More</a>
+                    <ul class="disc">
+                        <li v-for="detail in details">{{ detail }}</li>
+                    </ul>
+                    <hr>
+                    <div v-for="variant in variants" :key="variant.variantId" style="display: inline-block">
+                        <a href="#" target="_blank" class="button">{{ variant.variantColor }}</a>
+                    </div>
+                    <br>
+                    <div v-for="size in sizes" style="display: inline-block">
+                        <a href="#" target="_blank" class="button">{{ size }}</a>
                     </div>
                 </div>
             </div>
