@@ -75,7 +75,7 @@
                     <div class="cart">
                         <a v-on:click="addToCart" class="primary button">Add to Cart</a>
                         <span v-show="cart>0" @click="removeFromCart" class="alert small button" style="display: inline-block">x</span>
-                        <p style="display: inline-block;">Cart({{ cart }})</p>
+                        <p class="secondary button hollow" style="display: inline-block;">Cart({{ cart }})</p>
                     </div>
                 </div>
             </div>
