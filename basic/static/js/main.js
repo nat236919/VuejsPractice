@@ -26,16 +26,17 @@ var app = new Vue({
             }
         ],
         sizes: ["S", "M", "L", "XL"],
-        inventory: 23,
+        inventory: 7,
         onSale: true,
         cart: 0
     },
     methods: {
         addToCart() {
-            this.cart += 1
+            if (this.inventory > 0 && this.cart < this.inventory) this.cart += 1
+            
         },
         removeFromCart() {
-            this.cart -= 1
+            if (this.inventory > 0) this.cart -= 1
         },
         updateProductImage: function(variantImage) {
             this.image = variantImage

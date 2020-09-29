@@ -19,3 +19,14 @@
     color: white;
     text-shadow: 1px 1px 2px black;
 }
+
+.color-box {
+    width: 40px;
+    height: 40px;
+    margin: 2px;
+    display: inline-block;
+}
+
+.disable-button {
+    background-color: grey;
+}
