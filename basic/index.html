@@ -26,62 +26,13 @@
 
     <!-- Hero -->
     <div id="hero">
-        <div class="hero-section">
-            <div class="hero-section-text">
-                <h1>{{ head }}</h1>
-                <h5>{{ desc }}</h5>
-            </div>
-        </div>
+        <hero :details="details"></hero>
     </div>
 
     <!-- App  -->
     <div id="app">
-        <div class="grid-container">
-            <div class="card" style="width: 300px; height: auto;">
-                <!-- Product -->
-                <div class="card-divider">
-                    Product
-                </div>
-                <!-- Image -->
-                <img v-bind:src="image" style="height: 150px; width: 150px;" alt="Card image cap">
-                <!-- Info -->
-                <div class="card-section">
-                    <!-- Title -->
-                    <h4 style="display: inline-block">{{ title }}</h4>
-                    <!-- Status -->
-                    <div style="display: inline-block">
-                        <p v-if="inventory > 10" class="success label">In Stock</p>
-                        <p v-else-if="inventory > 0 && inventory <= 10" class="warning label">
-                            Almost Out of Stock ({{ inventory }} left)
-                        </p>
-                        <p v-else class="alert label">Out of Stock</p>
-                        <p v-show="onSale" class="badge alert">SALE!!</p>
-                    </div>
-                    <!-- Description and Details -->
-                    <p>{{ desc }}</p>
-                    <ul class="disc">
-                        <li v-for="detail in details">{{ detail }}</li>
-                    </ul>
-                    <hr>
-                    <div v-for="(variant, index) in variants" :key="variant.variantId"
-                        class="color-box" :style="{'background-color': variant.variantColor}"
-                        @mouseover="updateProductImage(index)">
-                    </div>
-                    <br>
-                    <div v-for="size in sizes" style="display: inline-block">
-                        <a href="#" target="_blank" class="secondary button hollow">{{ size }}</a>
-                    </div>
-                    <!-- Cart -->
-                    <hr>
-                    <div class="cart">
-                        <a v-on:click="addToCart" class="primary button"
-                            :disabled="!inStock" :class="{ 'disable-button': !inStock}">Add to Cart</a>
-                        <span v-show="cart>0" @click="removeFromCart" class="alert small button" style="display: inline-block">x</span>
-                        <p class="secondary button hollow" style="display: inline-block;">Cart({{ cart }})</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <product :premium="premium"></product>
+        <product></product>
     </div>
 
     <!-- development version, includes helpful console warnings -->
