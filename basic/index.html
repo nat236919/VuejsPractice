@@ -46,8 +46,8 @@
                 <img v-bind:src="image" style="height: 150px; width: 150px;" alt="Card image cap">
                 <!-- Info -->
                 <div class="card-section">
-                    <!-- Name -->
-                    <h4 style="display: inline-block">{{ product }}</h4>
+                    <!-- Title -->
+                    <h4 style="display: inline-block">{{ title }}</h4>
                     <!-- Status -->
                     <div style="display: inline-block">
                         <p v-if="inventory > 10" class="success label">In Stock</p>
@@ -63,9 +63,9 @@
                         <li v-for="detail in details">{{ detail }}</li>
                     </ul>
                     <hr>
-                    <div v-for="variant in variants" :key="variant.variantId"
+                    <div v-for="(variant, index) in variants" :key="variant.variantId"
                         class="color-box" :style="{'background-color': variant.variantColor}"
-                        @mouseover="updateProductImage(variant.variantImage)">
+                        @mouseover="updateProductImage(index)">
                     </div>
                     <br>
                     <div v-for="size in sizes" style="display: inline-block">
@@ -75,7 +75,7 @@
                     <hr>
                     <div class="cart">
                         <a v-on:click="addToCart" class="primary button"
-                            :disabled="inventory <= 0" :class="{ 'disable-button': inventory <= 0}">Add to Cart</a>
+                            :disabled="!inStock" :class="{ 'disable-button': !inStock}">Add to Cart</a>
                         <span v-show="cart>0" @click="removeFromCart" class="alert small button" style="display: inline-block">x</span>
                         <p class="secondary button hollow" style="display: inline-block;">Cart({{ cart }})</p>
                     </div>

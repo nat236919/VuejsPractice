@@ -9,7 +9,8 @@ var hero = new Vue({
 var app = new Vue({
     el: "#app",
     data: {
-        image: "https://rohan.imgix.net/product/05706H08.jpg",
+        selectedVariant: 0,
+        brand: "Nike",
         product: "Socks",
         desc: "Who doesn't love to have a good pair of socks? Get yourself a treat :)",
         details: ["80% cotton", "19% polyester", "1% love", "LGBT friendly"],
@@ -26,7 +27,7 @@ var app = new Vue({
             }
         ],
         sizes: ["S", "M", "L", "XL"],
-        inventory: 7,
+        inventory: 5,
         onSale: true,
         cart: 0
     },
@@ -38,8 +39,19 @@ var app = new Vue({
         removeFromCart() {
             if (this.inventory > 0) this.cart -= 1
         },
-        updateProductImage: function(variantImage) {
-            this.image = variantImage
+        updateProductImage: function(index) {
+            this.selectedVariant = index
+        }
+    },
+    computed: {
+        title() {
+            return this.brand + " " + this.product
+        },
+        image() {
+            return this.variants[this.selectedVariant].variantImage
+        },
+        inStock() {
+            return this.inventory > 0
         }
     }
 })
