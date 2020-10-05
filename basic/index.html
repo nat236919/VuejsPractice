@@ -31,8 +31,11 @@
 
     <!-- App  -->
     <div id="app">
-        <product :premium="premium"></product>
-        <product></product>
+        <!-- Cart -->
+        <div class="cart">
+            <p class="secondary button hollow" style="display: inline-block;">Cart({{ cart.length }})</p>
+        </div>
+        <product :premium="premium" @add-to-cart="updateCart" @remove-from-cart="removeCart"></product>
     </div>
 
     <!-- development version, includes helpful console warnings -->

@@ -84,14 +84,10 @@ Vue.component("product", {
                 <div v-for="size in sizes" style="display: inline-block">
                     <a href="#" target="_blank" class="secondary button hollow">{{ size }}</a>
                 </div>
-                <!-- Cart -->
+                <!-- Add to Cart -->
                 <hr>
-                <div class="cart">
-                    <a v-on:click="addToCart" class="primary button"
-                        :disabled="!inStock" :class="{ 'disable-button': !inStock}">Add to Cart</a>
-                    <span v-show="cart>0" @click="removeFromCart" class="alert small button" style="display: inline-block">x</span>
-                    <p class="secondary button hollow" style="display: inline-block;">Cart({{ cart }})</p>
-                </div>
+                <a v-on:click="addToCart" class="primary button" :disabled="!inStock" :class="{ 'disable-button': !inStock}">Add to Cart</a>
+                <span v-on:click="removeFromCart" class="alert small button" style="display: inline-block">x</span>
             </div>
         </div>
     </div>
@@ -116,18 +112,17 @@ Vue.component("product", {
                 }
             ],
             sizes: ["S", "M", "L", "XL"],
-            inventory: 5,
-            onSale: true,
-            cart: 0
+            inventory: 11,
+            onSale: true
         }
     },
     methods: {
         addToCart() {
-            if (this.inventory > 0 && this.cart < this.inventory) this.cart += 1
-            
+            if (this.inventory > 0)
+                this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
         },
         removeFromCart() {
-            if (this.inventory > 0) this.cart -= 1
+            this.$emit('remove-from-cart')
         },
         updateProductImage: function(index) {
             this.selectedVariant = index
@@ -155,6 +150,15 @@ Vue.component("product", {
 var app = new Vue({
     el: "#app",
     data: {
-        premium: true
+        premium: true,
+        cart: []
+    },
+    methods: {
+        updateCart(id) {
+            this.cart.push(id)
+        },
+        removeCart() {
+            this.cart.pop()
+        }
     }
 })
