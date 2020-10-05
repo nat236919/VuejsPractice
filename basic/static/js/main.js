@@ -1,3 +1,6 @@
+var eventBus = new Vue()
+
+
 Vue.component("hero", {
     props: {
         details: {
@@ -110,7 +113,7 @@ Vue.component('product-review', {
                     rating: this.rating,
                     recommendation: this.recommendation
                 }
-                this.$emit("review-submitted", productReview)
+                eventBus.$emit("review-submitted", productReview)
                 // Reset values
                 this.name = null
                 this.review = null
@@ -124,6 +127,44 @@ Vue.component('product-review', {
                 if (!this.rating) this.errors.push("Rating required.")
                 if (!this.recommendation) this.errors.push("Recommendation required.")
             }
+        }
+    }
+})
+
+
+Vue.component("product-tabs", {
+    props: {
+        reviews: {
+            type: Array,
+            required: true
+        }
+    },
+    template:`
+        <div>
+            <h2>Reviews</h2>
+            <div>
+                <span class="secondary button hollow"
+                    :class="{ activeTab: selectedTab === tab }"
+                    v-for="(tab, index) in tabs"
+                    :keys="index"
+                    @click="selectedTab = tab">
+                    {{ tab }}</span>
+            </div>
+
+            <div v-show="selectedTab === 'Reviews'">
+                <p v-if="!reviews.length">There are no reviews yet.</p>
+                <ul>
+                    <li v-for="review in reviews">{{ review }}</li>
+                </ul>
+            </div>
+
+            <product-review v-show="selectedTab === 'Make a Review'"></product-review>
+        </div>
+    `,
+    data() {
+        return {
+            tabs: ['Reviews', 'Make a Review'],
+            selectedTab: 'Reviews'
         }
     }
 })
@@ -178,15 +219,7 @@ Vue.component("product", {
             </div>
 
             <!-- Product Review -->
-            <div>
-                <h2>Reviews</h2>
-                <p v-if="!reviews.length">There are no reviews yet.</p>
-                <ul>
-                    <li v-for="review in reviews">{{ review }}</li>
-                </ul>
-            </div>
-
-            <product-review @review-submitted="addReview"></product-review>
+            <product-tabs :reviews="reviews"></product-tabs>
 
         </div>
     </div>
@@ -226,9 +259,6 @@ Vue.component("product", {
         },
         updateProductImage: function(index) {
             this.selectedVariant = index
-        },
-        addReview(productReview) {
-            this.reviews.push(productReview)
         }
     },
     computed: {
@@ -246,6 +276,11 @@ Vue.component("product", {
                 return "Free"
             return "$69"
         }
+    },
+    mounted() {
+        eventBus.$on("review-submitted", productReview => {
+            this.reviews.push(productReview)
+        })
     }
 })
 
